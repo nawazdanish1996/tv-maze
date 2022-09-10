@@ -1,38 +1,73 @@
 .App {
-  text-align: center;
+  background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(./img/bg.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.App .container{
+  /* border: 1px solid white; */
+  width: 90%;
+  height: 90vh;
+  position: absolute;
+  left: 5%;
+  top: 5vh;
+  background-color: rgba(0,0,0,.5);
+  border-radius: 20px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.App .container #inp{
+  width: 50%;
+}
+.App .container input:invalid{
+  animation: nawaz .3s;
+}
+@keyframes nawaz{
+  25% { transform: translateX(4px);}
+  50% { transform: translateX(-4px);}
+  75% { transform: translateX(4px);}
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+
+
+@media (max-width: 536px ) {
+  .container .fi{
+    font-size: 20px;
   }
-  to {
-    transform: rotate(360deg);
+  .container .se{
+    font-size: 17px;
   }
+  .App .container #inp{
+    width: 100%;
+  }
+}
+
+@media (max-width: 286) {
+  .container .fi{
+    font-size: 17px;
+  }
+  .container .se{
+    font-size: 12px;
+  }
+  .App .container #inp{
+    width: 100%;
+  }
+  
+}
+
+
+
+/* ========================================
+                  Cards
+ ===========================================*/
+
+ .content{
+  background: gray;
+}
+
+.content .col-md-4{
+  /* border: 1px solid white; */
 }
