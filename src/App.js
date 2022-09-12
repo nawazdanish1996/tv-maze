@@ -1,14 +1,22 @@
 import './App.css';
 import React, { useState } from 'react';
+import Movies from './components/Movies';
+import Shows from "./components/Shows";
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [data1, setData1] = useState([]);
   // Actor API: https://api.tvmaze.com/search/people?q=akon
   // Shows API: https://api.tvmaze.com/search/shows?q=friends
 
   const Actor = async () =>{
       let resp = await fetch("https://api.tvmaze.com/search/people?q=akon");
       setData(await resp.json());
+      // document.getElementById("inp").value = "";
+  }
+  const Show = async () =>{
+      let resp = await fetch("https://api.tvmaze.com/search/shows?q=friends");
+      setData1(await resp.json());
       document.getElementById("inp").value = "";
   }
 
@@ -34,7 +42,7 @@ const App = () => {
                 </div>
 
                 <div className="form-check ms-4">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                  <input onClick={Show} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                   <label className="form-check-label" for="flexRadioDefault2">
                     Shows
                   </label>
@@ -48,31 +56,8 @@ const App = () => {
         </div>
       </div>
 
-      {/* Card */}
-
-            <div className='content p-5'>
-              <div className="container">
-                  <div className="row">
-      {
-        
-       data.map((val, ind)=>{
-              return(
-                      <div className="col-md-4 mb-4" key={ind}>
-                          <div className="card" style={{width: "18rem"}} >
-                            <img className="card-img-top" src="/" alt='card-img' />
-                              <div className="card-body">
-                                <h5 className="card-title">{val.person.name}</h5>
-                                <p className="card-text">{}</p>
-                                <p className=' float-end text-success'>Rating: {val.score}</p>
-                              </div>
-                          </div>
-                      </div>
-              )
-          })
-        }
-              </div>
-          </div>
-        </div>
+        <Movies data={data} />
+        <Shows data1={data1} />
     </div>
   )
 }
