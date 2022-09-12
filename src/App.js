@@ -3,20 +3,13 @@ import React, { useState } from 'react';
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [searchData, setSearchData] = useState("");
+  // Actor API: https://api.tvmaze.com/search/people?q=akon
+  // Shows API: https://api.tvmaze.com/search/shows?q=friends
 
   const Actor = async () =>{
-    const response = await fetch("https://api.tvmaze.com/search/people?q=akon");
-    setData(await response.json())
-  }
-
-  const Shows = async () =>{
-    const response = await fetch("https://api.tvmaze.com/search/shows?q=friends");
-    setData(await response.json())
-  }
-
-  const Srch = (e) => {
-    setSearchData(e.target.value)
+      let resp = await fetch("https://api.tvmaze.com/search/people?q=akon");
+      setData(await resp.json());
+      document.getElementById("inp").value = "";
   }
 
   return (
@@ -34,21 +27,22 @@ const App = () => {
 
               <div className="col-md-12 col-sm-12 d-flex mt-xl-5 mt-lg-3 mt-md-2">
                 <div className="form-check">
-                  <input onClick={Actor()} className='form-check-input' id='flexRadioDefault1' type="radio" name="flexRadioDefault" />
+                  <input onClick={Actor} className='form-check-input' id='flexRadioDefault1' type="radio" name="flexRadioDefault" />
                   <label className="form-check-label" for="flexRadioDefault1">
                       Actor
                   </label>
                 </div>
 
                 <div className="form-check ms-4">
-                  <input onClick={Shows()} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                   <label className="form-check-label" for="flexRadioDefault2">
                     Shows
                   </label>
                 </div>
               </div>
               <div className="col-md-12 col-sm-12 mt-2">
-                <input onChange={Srch} id='inp' className="form-control form-control-sm " type="text" placeholder="eg. Friends..." />
+                <input id='inp' className="form-control form-control-sm " type="text" placeholder="eg: Friends..." />
+                <p id='ifnotfound'></p>
               </div>
             </div>
         </div>
@@ -60,28 +54,27 @@ const App = () => {
               <div className="container">
                   <div className="row">
       {
-        searchData.length>=1?data.map((val, ind)=>{
-          let my = "";
-
-              if(val.person === undefined){
-                val=String(val.show.name)
-              }
-
-              if(val.show === undefined){
-                val=String(val.person.name)
-              }
-
-              my=my.toLowerCase();
-              if(searchData === my.substring(0, searchData.length)){
-                return <Movie my={val} key={ind} />
-              }
-          }):null
+        
+       data.map((val, ind)=>{
+              return(
+                      <div className="col-md-4 mb-4" key={ind}>
+                          <div className="card" style={{width: "18rem"}} >
+                            <img className="card-img-top" src="/" alt='card-img' />
+                              <div className="card-body">
+                                <h5 className="card-title">{val.person.name}</h5>
+                                <p className="card-text">{}</p>
+                                <p className=' float-end text-success'>Rating: {val.score}</p>
+                              </div>
+                          </div>
+                      </div>
+              )
+          })
         }
               </div>
           </div>
         </div>
     </div>
-  );
+  )
 }
 
 export default App;
