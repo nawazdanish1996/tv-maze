@@ -3,13 +3,10 @@ import React from 'react';
 function Movies(props) {
   return (
     <React.Fragment>
-        <div className='content p-5'>
-        <div className="container">
-        <div className="row d-flex">
 {
     props.val.person === undefined ?(
-            <div className="col-md-4 mb-2">
-                <div className="card" style={{width: "18rem"}} >
+
+                <div className=" mt-5 ms-5 mn-5 m-5 card d-inline-block flex-wrap" style={{width: "18rem"}} >
                     { props.val.show.image != null?
                     (
                     <img className="card-img-top" src={props.val.show.image.medium} alt='card-img' />
@@ -24,10 +21,8 @@ function Movies(props) {
                         <p className=' text-success'>Rating: {}</p>
                     </div>
                 </div>
-            </div>
     ):(
-            <div className="col-md-4 mb-2">
-                <div className="card" style={{width: "18rem"}} >
+                <div className="mt-5 ms-5 mn-5 m-5 card d-inline-block flex-wrap" style={{width: "18rem"}} >
                 { props.val.person.image != null?
                     (
                     <img className="card-img-top" src={props.val.person.image.medium} alt='card-img' />
@@ -42,12 +37,8 @@ function Movies(props) {
                         <p className=' float-end text-success'>Rating: {}</p>
                     </div>
                 </div>
-            </div>
             )
 }
-            </div>
-            </div>
-            </div>
     </React.Fragment>
   )
 }

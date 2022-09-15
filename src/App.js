@@ -8,21 +8,25 @@ const App = () => {
   // Actor API: https://api.tvmaze.com/search/people?q=akon
   // Shows API: https://api.tvmaze.com/search/shows?q=friends
 
-  function Actor() {
-    fetch("https://api.tvmaze.com/search/people?q=akon")
-      .then((obj) => obj.json())
-      .then((data) => setData(data));
-    document.getElementById("inp").value = "";
+  const Actor = async () => {
+    let url = "https://api.tvmaze.com/search/people?q=akon";
+    let resp = await fetch(url);
+
+    setData(await resp.json())
+    let input = document.getElementById("inp");
+    input.value = "";
   }
-  function Show() {
-    fetch("https://api.tvmaze.com/search/shows?q=friends")
-      .then((obj) => obj.json())
-      .then((data) => setData(data));
-    document.getElementById("inp").value = "";
+  const Show = async () => {
+    let url = "https://api.tvmaze.com/search/shows?q=friends";
+    let resp = await fetch(url);
+    setData(await resp.json())
+    let input = document.getElementById("inp");
+    input.value = "";
   }
   function serch(e) {
     setSearchData(e.target.value);
   }
+
 
   return (
     <div className="master">
@@ -56,6 +60,7 @@ const App = () => {
               </div>
               <div className="col-md-12 col-sm-12 mt-2">
                 <input onChange={serch} id='inp' className="form-control form-control-sm " type="text" placeholder="eg: Friends..." />
+                <div id="error" className='text-warning'></div>
               </div>
             </div>
         </div>
@@ -64,6 +69,7 @@ const App = () => {
       {
         searchData.length >= 1 ?
         data.map((ele, index)=>{
+          
           let val = "";
           if (ele.person === undefined) {
             val = String(ele.show.name);
@@ -71,11 +77,21 @@ const App = () => {
           if (ele.show === undefined) {
             val = String(ele.person.name);
           }
-
+          
           val = val.toLowerCase();
           if (searchData === val.substring(0, searchData.length)) {
             return <Movies val={ele} key={index} />;
           }
+          
+          // Error Text
+          // let input = document.getElementById("inp").value;
+          // let error = document.getElementById("error");
+          // if(ele.value === undefined){
+          //   error.innerText = "Invalid Input";
+          // }
+          // else{
+          //   error.innerText = "";
+          // }
         }):null
       }
     </div>
